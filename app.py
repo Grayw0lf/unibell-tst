@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import UUID
 from flask_migrate import Migrate
-from uuid import uuid4
+import uuid
 from helpers import csv_parser
 
 
@@ -26,7 +26,7 @@ class FilePhonesModel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     file_name = db.Column(db.String)
-    file_id = db.Column(UUID(as_uuid=True), default=str(uuid4()))
+    file_id = db.Column(UUID(as_uuid=True), default=str(uuid.uuid4()))
 
     def __repr__(self):
         return f"<File {self.filename}>"
@@ -54,7 +54,7 @@ def phones_add():
 
 
 @app.route('phones/<uuid:file_id>/', methods=['GET'])
-def get_phones_json():
+def get_phones_json(file_id):
     if request.method == 'GET':
         # отдаем телефоны из файла file_id в формате json
         pass
