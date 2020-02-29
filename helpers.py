@@ -1,7 +1,10 @@
 import csv
-import json
 
 
-def csv_to_json(file):
-    json_data = [json.dumps(f) for f in csv.DictReader(open(file))]
-    return json_data
+def csv_parser(file):
+    with open(file, 'r') as f:
+        reader = csv.reader(f)
+        phones = []
+        for row in reader:
+            phones.append(row)
+        return phones
