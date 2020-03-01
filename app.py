@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import UUID
 from flask_migrate import Migrate
@@ -28,8 +28,11 @@ class FilePhonesModel(db.Model):
     file_name = db.Column(db.String)
     file_id = db.Column(UUID(as_uuid=True), default=str(uuid.uuid4()))
 
-    def __repr__(self):
-        return f"<File {self.filename}>"
+    def __repr__(self): # Непонятно нужно ли вообще переопределять данный метод
+        return f"<File {self.filename}, fileId {self.file_id}>"
+
+    def __str__(self):
+        return f"File {self.file_name}, fileId {self.file_id}"
 
 
 class PhoneModel(db.Model):
@@ -37,6 +40,13 @@ class PhoneModel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     phone = db.Column(db.String)
+    file_phone = db.relationship("FilePhonesModel", backref='phone')
+
+    def __repr__(self):
+        return f"<Phone {self.phone}"
+
+    def __str__(self):
+        return f"<Phone {self.phone}"
 
 
 @app.route('phones/', methods=['GET', 'POST'])
@@ -50,6 +60,7 @@ def phones_add():
 
     elif request.method == 'GET':
         # отдаем список файлов с file_id
+        # return jsonify(files_list)
         pass
 
 
@@ -57,6 +68,7 @@ def phones_add():
 def get_phones_json(file_id):
     if request.method == 'GET':
         # отдаем телефоны из файла file_id в формате json
+        # return jsonify(phones)
         pass
 
 
