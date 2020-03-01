@@ -60,8 +60,8 @@ def phones_add():
 
     elif request.method == 'GET':
         # отдаем список файлов с file_id
-        # return jsonify(files_list)
-        pass
+        files_list = FilePhonesModel.query.all()
+        return jsonify(files_list)
 
 
 @app.route('phones/<uuid:file_id>/', methods=['GET'])
