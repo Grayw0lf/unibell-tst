@@ -21,7 +21,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
-class FilePhonesModel(db.Model):
+class PhoneFileModel(db.Model):
     __tablename__ = 'files'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -40,7 +40,7 @@ class PhoneModel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     phone = db.Column(db.String)
-    file_phone = db.relationship("FilePhonesModel", backref='phone')
+    phone_file = db.relationship("PhoneFileModel", backref='phonefile')
 
     def __repr__(self):
         return f"<Phone {self.phone}"
@@ -60,7 +60,7 @@ def phones_add():
 
     elif request.method == 'GET':
         # отдаем список файлов с file_id
-        files_list = FilePhonesModel.query.all()
+        files_list = PhoneFileModel.query.all()
         return jsonify(files_list)
 
 
