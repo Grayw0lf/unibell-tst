@@ -28,7 +28,7 @@ class PhoneFileModel(db.Model):
     file_name = db.Column(db.String)
 
     def __str__(self):
-        return f"File {self.file_name}, fileId {self.file_id}"
+        return f"File {self.file_name}, fileId {self.id}"
 
 
 class PhoneModel(db.Model):
