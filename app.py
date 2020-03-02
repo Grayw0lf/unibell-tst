@@ -1,8 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.dialects.postgresql import UUID
 from flask_migrate import Migrate
-import uuid
 from helpers import csv_parser
 
 
@@ -58,7 +56,7 @@ def phones_add():
         return jsonify(files_list)
 
 
-@app.route('phones/<uuid:file_id>/', methods=['GET'])
+@app.route('phones/<int:file_id>/', methods=['GET'])
 def get_phones_json(file_id):
     if request.method == 'GET':
         # отдаем телефоны из файла file_id в формате json
